@@ -21,40 +21,49 @@
 # required to follow it. ALSO NOT ALL STEPS HAVE BEEN COMMENTED. You may have additional steps.
 
 
+from cmath import inf
 import csv
+import email
 
 # open the vendorlist file
-
+infile = open('VendorList.csv', 'r')
 
 # create a csv object from the file object
-
+csvFile = csv.reader(infile, delimiter=',')
 
 # create an output file
-
+outfile = open('marketinglistFINAL.csv', 'w')
 
 
 
 
 # create an empty dictionary
-
+customers = {}
 
 
 # iterate through the csv object
+infile.readline()
 
-
-
-
+for record in csvFile:
+    details = {}
+    fullName = record[1] + ' ' + record[2]
     # add the key-value pair to the dictionary
 
+    details['email'] = record[4]
+    details['phone'] = record[5]
+
+    customers[fullName] = details
 
 
 # print the dictionary after the loop is finished
-
+print(customers)
 
 
 # iternate through the dictionary and write to the output file
+outfile.write('Name,Email,Phone\n')
 
-
+for record in customers:
+    outfile.write(record+','+customers[record]['email']+','+customers[record]['phone']+'\n')
 
 # close your output file
-
+outfile.close()
